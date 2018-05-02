@@ -1,0 +1,121 @@
+{
+  "subdomains_fuzzing": {
+    "id": 1,
+    "description": "Check subdomains for host.",
+    "args": [
+    ],
+    "group": "fuzzer"
+  },
+  "dirs_fuzzing": {
+    "id": 2,
+    "description": "Check dirs on host",
+    "args": [
+    ],
+    "group": "fuzzer"
+  },
+  "suffixes_fuzzing": {
+    "id": 3,
+    "description": "Check suffixes for host.",
+    "args": [
+    ],
+    "group": "fuzzer"
+  },
+  "dns_info": {
+    "id": 4,
+    "description": "Get information from dns server.",
+    "args": [
+    ],
+    "group": "infogather"
+  },
+  "dns_zone_transfer": {
+    "id": 5,
+    "description": "Try to Make Zone Transfer.",
+    "args": [
+    ],
+    "group": "exploit"
+  },
+  "http_grab_banner": {
+    "id": 6,
+    "description": "Get banner from http/https.",
+    "args": [
+    ],
+    "group": "infogather"
+  },
+  "iana_whois_info": {
+    "id": 7,
+    "description": "Get whois info from IANA.",
+    "args": [
+
+    ],
+    "group": "infogather"
+  },
+  "ip_whois_info": {
+    "id": 9,
+    "description": "Get whois info from IPWHOIS",
+    "args": [
+    ],
+    "group": "infogather"
+  },
+  "domain_whois_info": {
+    "id": 10,
+    "description": "Get whois info from domain whois.",
+    "args": [
+    ],
+    "group": "infogather"
+  },
+  "nmap_banner": {
+    "id": 11,
+    "description": "Get banners from nmap banner nse.",
+    "args": [
+    ],
+    "group": "discovery"
+  },
+  "mails_on_host": {
+    "id": 12,
+    "description": "Search for mails by host.",
+    "args": [
+    ],
+    "group": "search"
+  },
+    "flickr_by_radius": {
+    "id": 13,
+    "description": "Search Flickr for photos by location.",
+    "args": [
+      "radius"
+    ],
+    "group": "search"
+  },
+
+   "youtube_by_radius": {
+    "id": 14,
+    "description": "Search YouTube for photos by location.",
+    "args": [
+      "radius"
+    ],
+    "group": "search"
+  },
+  "panoramio_by_box": {
+    "id": 15,
+    "description": "Search Panoramio for photos by location.",
+    "args": [
+      "radius"
+    ],
+    "group": "search"
+  },
+  "instagram_by_radius": {
+    "id": 16,
+    "description": "Search Instagram for photos by location.",
+    "args": [
+      "radius"
+    ],
+    "group": "search"
+  },
+  "location_info": {
+    "id": 17,
+    "description": "Get Info About location",
+    "args": [
+    ],
+    "group": "search"
+  }
+
+}

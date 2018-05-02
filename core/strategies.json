@@ -1,0 +1,39 @@
+{
+  "fuzzing": {
+    "description": "Try all possible option on host.",
+    "vectors": [
+      "subdomains_fuzzing",
+      "dirs_fuzzing",
+      "suffixes_fuzzing"
+    ]
+  },
+  "whois": {
+    "description": "Get All whois information available, terminal only",
+    "vectors": [
+      "ip_whois_info",
+      "domain_whois_info",
+      "iana_whois_info"
+    ]
+  },
+  "dns": {
+    "description": "Get dns info.",
+    "vectors": [
+      "dns_info"
+    ]
+  },
+  "infogather": {
+    "description": "Get information from the host",
+    "vectors": [
+      "http_grab_banner",
+      "mails_on_host"
+    ]
+  },
+  "photos_by_location":  {
+    "description": "get all photos by cordinate",
+    "vectors": [
+      "flickr_by_radius",
+      "panoramio_by_box",
+      "instagram_by_radius"
+    ]
+  }
+}
