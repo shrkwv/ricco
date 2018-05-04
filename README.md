@@ -3,7 +3,7 @@
 
 #Ricco
 
-Simple Reconnaissance Framework.
+Simple Agile Reconnaissance Framework.
 
 Description
 ============
