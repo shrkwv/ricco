@@ -1,8 +1,8 @@
 ![Supported Python versions](https://img.shields.io/badge/python-2.7-blue.svg)
 ![Supported OS](https://img.shields.io/badge/Supported%20OS-Linux-yellow.svg)
 
-#Ricco
-
+Ricco
+=====
 Simple Agile Reconnaissance Framework.
 
 Description
