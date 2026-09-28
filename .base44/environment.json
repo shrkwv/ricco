@@ -1,0 +1,7 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [],
+  "notes": "Ricco is a Python 2.7 CLI reconnaissance tool, not a web app. There is no web server to preview on port 3000. The tool runs via 'docker compose exec ricco python ricco.py ...'. Some vectors (flickr, instagram, youtube, location) need API keys in core/ricco.ini, but core vectors (dns_info, whois, fuzzing) work without credentials."
+}
