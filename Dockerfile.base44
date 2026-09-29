@@ -1,0 +1,33 @@
+# Stage 1: Build Python 2.7 packages
+FROM python:2.7-slim AS py-builder
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
+
+# Stage 2: PHP + Apache + Python 2.7 runtime
+FROM php:7.4-apache
+
+# Install Python 2.7 runtime only (no build tools needed)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends python2.7 && \
+    ln -sf /usr/bin/python2.7 /usr/local/bin/python && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy installed Python packages from builder stage
+COPY --from=py-builder /usr/local/lib/python2.7/site-packages /usr/local/lib/python2.7/site-packages
+ENV PYTHONPATH=/usr/local/lib/python2.7/site-packages
+
+# Download and extract ricco-web (web frontend)
+RUN curl -sSL https://github.com/shrkwv/ricco-web/archive/refs/heads/master.tar.gz -o /tmp/ricco-web.tar.gz && \
+    mkdir -p /var/www/html/ricco-web && \
+    tar xzf /tmp/ricco-web.tar.gz -C /var/www/html/ricco-web --strip-components=1 && \
+    rm -rf /var/www/html/ricco-web/ricco /tmp/ricco-web.tar.gz
+
+# Set Apache document root to ricco-web
+RUN sed -i 's|/var/www/html|/var/www/html/ricco-web|g' /etc/apache2/sites-available/000-default.conf && \
+    sed -i 's|/var/www/html|/var/www/html/ricco-web|g' /etc/apache2/apache2.conf
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+EXPOSE 80
+ENTRYPOINT ["/docker-entrypoint.sh"]
