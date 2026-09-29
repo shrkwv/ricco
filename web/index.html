@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ricco - Web</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.dynatable.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-table.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/my.css?v=2">
+
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.dynatable.js"></script>
+    <!-- jQuery File Upload Dependencies -->
+    <!-- // <script src="assets/js/jquery.ui.widget.js"></script> -->
+    <!-- // <script src="assets/js/jquery.iframe-Transport.js"></script> -->
+    <!-- <script src="assets/js/jquery.fileupload.js"></script> -->
+
+    <!-- script selector a( forms) -->
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$("#mainselector").change(function(){
+				$.ajaxSetup ({
+	    // Disable caching of AJAX responses
+	    cache: false
+	});
+				$(this).find("option:selected").each(function(){
+					if($(this).attr("value")=="strategy"){
+						jQuery("#form").load("forms/strategy_form.html");
+
+						}
+
+						else if($(this).attr("value")=="vector"){
+
+							jQuery("#form").load("forms/vector_form.html");
+						}
+					});
+			}).change();
+		});
+
+
+
+
+
+    </script>
+
+    <script type="text/javascript">
+		$(document).ready(function() {
+		    // process the form
+		    $('#loading').hide()
+
+		    		$(form).submit(function(event) {
+
+		    			$('#loading').show();
+		    			var formData = $("#script_form").serialize();
+		    			var runType = "assets/php/" + $("#mainselector").val() + ".php"
+
+
+		        // process the form
+		        $.ajax({
+			        url: runType, // the url where we want to POST
+		            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+		            dataType: 'json',
+		            data: formData, // our data object
+
+		            success: function(data) {
+
+		            	$('#loading').hide();
+                        $("div#result").empty();
+                        $.each(data, function(key, value){
+
+                            // $"div#result").append(
+                            //     $("<legend></legend>").append(
+                            //         $("<h4></h4>")
+                            //         .text(key)
+                            //         )
+                            // );
+
+                            $("div#result").append(
+
+                                $("<table></table>")
+                                .attr('id',key)
+                                .addClass("table-bordered")
+                            );
+
+
+                            $("table#"+key).append(
+                                
+                                $("<thead></thead>")
+                                .attr('id',key)
+                            );
+
+                            $.each(value[0],function(k, v){
+                                console.log(k);
+                                $("thead#"+key).append(
+                                    $("<th></th>")
+                                    .text(k)
+                                );
+                            });
+
+                            $("table#"+key).append(
+                                $("<tbody></tbody>")
+                                .attr('id',key)
+                            );
+
+                            $("table#"+key).dynatable({
+                                table: {
+                                    headRowSelector:'thead',
+                                    defaultColumnIdStyle: 'trimDash'
+                                },
+                                dataset: {
+                                records: value
+                                },
+                            });
+
+
+
+                        });
+                    }
+
+		        })
+
+		        // stop the form from submitting the normal way and refreshing the page
+		        event.preventDefault();
+		    });
+
+	});
+
+
+
+
+
+	</script>
+
+
+</head>
+
+
+<body>
+
+<div class="container-fluid">
+    <legend><h1>Ricco</h1></legend>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="chooseopr">
+                <legend><h3>Cooking Area</h3></legend>
+
+                <form role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="mainselector" class="col-sm-4 control-label">Select operation:</label>
+
+                        <div class="col-sm-8 selectContainer">
+
+                            <select class="form-control" id="mainselector">
+                                <option value="" selected disabled>Please select</option>
+
+                                <option value="strategy">Strategy</option>
+                                <option value="vector">Vector</option>
+
+
+                            </select>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div id="form" class="form-group">
+                <!-- form class load to here -->
+            </div>
+        </div>
+
+
+        <div class="col-sm-9">
+            <legend><h3>Results</h3></legend>
+            <div id="loading" class="text-center" style="dispay: none"><img src="assets/img/prog.gif" alt=""></div>
+            <div id="result" class="result">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="terminal-footer">
+    Ricco &mdash; Simple Reconnaissance Framework &nbsp;|&nbsp; <span class="status-dot">&#9679; ONLINE</span>
+</div>
+
+</body>
+
+</html>

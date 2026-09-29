@@ -7,6 +7,8 @@ services:
       - "3000:80"
     volumes:
       - ./:/var/www/html/ricco-web/ricco
+      - ./web/index.html:/var/www/html/ricco-web/index.html
+      - ./web/assets/css/my.css:/var/www/html/ricco-web/assets/css/my.css
     restart: on-failure
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
