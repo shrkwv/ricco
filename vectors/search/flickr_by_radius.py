@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
+import shlex
 
 from utils import general_utilities, search_utilities
 from core.base.abstract_vector import base_vector
-import utils.scraper as scraper
-import shlex
 
 class flickr_by_radius(base_vector):
     result = []
@@ -17,7 +17,7 @@ class flickr_by_radius(base_vector):
             s_vector_args = ' '.join(vector_args)
             vector_args = dict(token.split('=') for token in shlex.split(s_vector_args))
 
-            if vector_args.has_key('radius'):
+            if 'radius' in vector_args:
                 self.radius = int(vector_args['radius'])
 
     def execute(self):

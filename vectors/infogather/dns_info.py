@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+# !/usr/bin/env python3
 from utils import general_utilities
 
 import utils.dns_utilities as dns_utilities
@@ -26,14 +26,16 @@ class dns_info(base_vector):
         # alias_result = tabulate(alias_records,headers=header)
 
         # result = mx_result+ns_result+alias_result
+        # A/AAAA rows carry rdata objects with an .address; MX/NS rows carry
+        # preformatted strings or name objects, so render them via str().
         if A_records:
-            self.result += [(item[0],item[1].address) for item in A_records]
+            self.result += [(item[0], str(item[1].address)) for item in A_records]
         if AAAA_records:
-            self.result += [(item[0],item[1].address) for item in AAAA_records]
+            self.result += [(item[0], str(item[1].address)) for item in AAAA_records]
         if MX_records:
-            self.result += [(item[0],item[1].address) for item in MX_records]
+            self.result += [(item[0], str(item[1])) for item in MX_records]
         if NS_records:
-            self.result += [(item[0],item[1].address) for item in NS_records]
+            self.result += [(item[0], str(item[1])) for item in NS_records]
 
             # def output(self):
             #

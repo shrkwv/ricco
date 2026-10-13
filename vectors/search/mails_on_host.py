@@ -31,6 +31,7 @@ class mails_on_host(base_vector):
 
         result_for_links = []
         for link in links:
+            emails = []
             data, e = general_utilities.get_page(link)
             if data:
                 emails = scraper.get_emails(data)

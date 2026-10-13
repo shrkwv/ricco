@@ -1,14 +1,17 @@
-# !/usr/bin/env python
-import json
-from core.base.vector_data_holder import vector_data_holder
+# !/usr/bin/env python3
+import configparser
 import os
+
 import ricco
-import ConfigParser
+
+from core.base.vector_data_holder import vector_data_holder
+
+
 class base_vector():
     base_path = os.path.dirname(os.path.realpath(ricco.__file__))
-    ricco_conf = ConfigParser.ConfigParser()
-    ricco_ini_path = base_path +"/core/ricco.ini"
-    ricco_conf.readfp(open(ricco_ini_path))
+    ricco_conf = configparser.ConfigParser()
+    ricco_ini_path = base_path + "/core/ricco.ini"
+    ricco_conf.read(ricco_ini_path)
 
     def prepare(self, target):
         pass

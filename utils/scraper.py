@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 ###########################################################################
 # SCRAPE TEXT FILES AND HTMLS
 ###########################################################################
@@ -122,7 +122,7 @@ def get_a_hrefs(html, start_url=None, query=None):
         if start_url and link[0] == '/':
             link = start_url + link
         if query and not query in link:
-            print "query deletion"
+            print("query deletion")
             continue
         links[title] = link
 

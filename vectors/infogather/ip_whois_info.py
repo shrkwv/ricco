@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import re
 
@@ -25,8 +25,7 @@ class ip_whois_info(base_vector):
     def execute(self):
         addr = self.target
         obj = IPWhois(addr)
-        self.result = obj.lookup_rws()
-        print self.result
+        self.result = obj.lookup()
         # def output(self):
         #
         #     banner = general_utilities.generate_banner("IP Whois Info")

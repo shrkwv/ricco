@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from utils import general_utilities
 
 from core.base.abstract_vector import base_vector
