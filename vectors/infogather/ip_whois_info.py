@@ -25,7 +25,8 @@ class ip_whois_info(base_vector):
     def execute(self):
         addr = self.target
         obj = IPWhois(addr)
-        self.result = obj.lookup()
+        # RDAP is the modern replacement for the removed lookup_rws()
+        self.result = obj.lookup_rdap()
         # def output(self):
         #
         #     banner = general_utilities.generate_banner("IP Whois Info")

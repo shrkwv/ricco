@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # import nmap
 import utils.nmap_wraper as nmap

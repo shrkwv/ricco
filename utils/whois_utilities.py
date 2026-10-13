@@ -11,6 +11,13 @@ _NOT_FOUND_MARKERS = ("no match", "not found", "no entries found", "no data foun
 
 
 def _query_server(server, query, timeout=10):
+    try:
+        return _connect_and_read(server, query, timeout)
+    except OSError as e:
+        raise WhoisError("whois query to %s failed" % server) from e
+
+
+def _connect_and_read(server, query, timeout):
     with socket.create_connection((server, 43), timeout=timeout) as sock:
         sock.sendall((query + "\r\n").encode("utf-8"))
         chunks = []

@@ -25,6 +25,6 @@ class location_info(base_vector):
         results = geocoding["results"]
         if status == "OK":
             for res in results:
-                self.result.append(list(res.values()))
+                self.result.append([res["lat"], res["lng"], res["formatted_address"]])
         else:
             self.result = None
