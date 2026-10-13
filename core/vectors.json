@@ -85,31 +85,6 @@
     ],
     "group": "search"
   },
-
-   "youtube_by_radius": {
-    "id": 14,
-    "description": "Search YouTube for photos by location.",
-    "args": [
-      "radius"
-    ],
-    "group": "search"
-  },
-  "panoramio_by_box": {
-    "id": 15,
-    "description": "Search Panoramio for photos by location.",
-    "args": [
-      "radius"
-    ],
-    "group": "search"
-  },
-  "instagram_by_radius": {
-    "id": 16,
-    "description": "Search Instagram for photos by location.",
-    "args": [
-      "radius"
-    ],
-    "group": "search"
-  },
   "location_info": {
     "id": 17,
     "description": "Get Info About location",

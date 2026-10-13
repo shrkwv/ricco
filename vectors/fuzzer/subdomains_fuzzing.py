@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import socket
 
 from  core.base.abstract_vector import base_vector
@@ -40,7 +40,7 @@ class subdomains_fuzzing(base_vector):
                 uri_result = []
                 uri_result.append(uri.lower())
                 self.result.append(uri_result)
-            except socket.error, e:
+            except socket.error:
                 pass
 
                 # def output(self):

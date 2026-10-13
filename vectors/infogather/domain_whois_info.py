@@ -1,10 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import re
 
-import pythonwhois
-
-from utils import general_utilities
+from utils import general_utilities, whois_utilities
 from core.base.abstract_vector import base_vector
 
 
@@ -24,12 +22,8 @@ class domain_whois_info(base_vector):
     def execute(self):
         domain = self.target
         try:
-            whois_data = pythonwhois.get_whois(domain)
-            # TODO parse result
-            assert whois_data.has_key("raw")
-            whois_data = str(whois_data["raw"][0])
-            self.result = whois_data
-        except pythonwhois.shared.WhoisException:
+            self.result = whois_utilities.get_whois_raw(domain)
+        except whois_utilities.WhoisError:
             self.result = "Domain Not Found"
 
             # def output(self):

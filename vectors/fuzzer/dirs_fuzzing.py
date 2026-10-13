@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import urllib2
+import urllib.error
+import urllib.request
 
 from core.base.abstract_vector import base_vector
 from utils import general_utilities
@@ -35,14 +36,12 @@ class dirs_fuzzing(base_vector):
             # if counter > 3:
             #     break
             try:
-                response = urllib2.urlopen(uri, timeout=3)
+                response = urllib.request.urlopen(uri, timeout=3)
                 if response:
                     self.result.append((uri, str(response.getcode())))
 
-            except urllib2.HTTPError, e:
-                if e.code == 401:
+            except urllib.error.HTTPError as e:
+                if e.code in (401, 403):
                     self.result.append((uri, e.code))
-                elif e.code == 403:
-                    self.result.append((uri, e.code))
-            except urllib2.URLError, e:
+            except urllib.error.URLError:
                 pass

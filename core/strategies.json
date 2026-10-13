@@ -31,9 +31,7 @@
   "photos_by_location":  {
     "description": "get all photos by cordinate",
     "vectors": [
-      "flickr_by_radius",
-      "panoramio_by_box",
-      "instagram_by_radius"
+      "flickr_by_radius"
     ]
   }
 }

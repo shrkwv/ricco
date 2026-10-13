@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from utils import general_utilities, search_utilities
 from core.base.abstract_vector import base_vector
@@ -31,6 +31,7 @@ class mails_on_host(base_vector):
 
         result_for_links = []
         for link in links:
+            emails = []
             data, e = general_utilities.get_page(link)
             if data:
                 emails = scraper.get_emails(data)

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import sys
 import argparse
@@ -77,7 +77,7 @@ def main():
                 args = ', '.join(vectors_conf[vector_name]["args"])
                 data.append([vector_name,vectors_conf[vector_name]["description"],args])
 
-            print tabulate(data, headers=header, tablefmt="pipe")
+            print(tabulate(data, headers=header, tablefmt="pipe"))
             exit(0)
         elif show == "strategies":
             strategies_info = {}
@@ -93,7 +93,7 @@ def main():
                 cur_item.append(strategies_vectors)
                 strategies_info_list.append(cur_item)
 
-            print tabulate(strategies_info_list, headers=header)
+            print(tabulate(strategies_info_list, headers=header))
             exit(0)
 
     elif help_vector:
@@ -101,7 +101,7 @@ def main():
         vectors_conf, err = general_utilities.load_json(vectors_file)
         for vector_name in help_vector:
             if vector_name in vectors_conf.keys():
-                print "%s:\n%s" % (vector_name, vectors_conf[vector_name]["description"])
+                print("%s:\n%s" % (vector_name, vectors_conf[vector_name]["description"]))
             else:
                 sys.stderr.write("%s: %s" % (vector_name, "not exist"))
                 exit(1)
@@ -111,7 +111,7 @@ def main():
 
         for strategy_name in help_strategy:
             if strategy_name in strategies_conf.keys():
-                print "%s:\n%s" % (strategy_name, strategies_conf[strategy_name]["description"])
+                print("%s:\n%s" % (strategy_name, strategies_conf[strategy_name]["description"]))
             else:
                 sys.stderr.write("%s: %s" % (strategy_name, "not exist"))
                 exit(1)

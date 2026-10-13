@@ -1,12 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from collections import OrderedDict
 import json
 import os
 import random
 import string
-import urllib
-import urllib2
-from urlparse import urlparse
+import urllib.parse
+import urllib.request
+from urllib.parse import urlparse
 import socket
 import math
 
@@ -100,9 +100,9 @@ def load_json(json_file_path, mode='r'):
     with open(json_file_path, mode) as f:
         try:
             json_object = json.load(f)
-        except IOError, e:
+        except IOError as e:
             err = e
-        except KeyError, e:
+        except KeyError as e:
             err = e
 
     return json_object, err
@@ -122,14 +122,14 @@ def get_page(url, params = None):
         'Accept-Language': 'en-US,en;q=0.8',
         'Connection': 'keep-alive'}
     if params:
-        url = url + urllib.urlencode(params)
+        url = url + urllib.parse.urlencode(params)
     result = None
     e = None
     try:
-        request = urllib2.Request(url, headers=header)
-        response = urllib2.urlopen(request)
-        result = response.read()
-    except ValueError, e:
+        request = urllib.request.Request(url, headers=header)
+        response = urllib.request.urlopen(request)
+        result = response.read().decode("utf-8", errors="replace")
+    except ValueError as e:
         return result, e
 
     return result, e
@@ -164,7 +164,7 @@ def get_bounding_box(latitude_in_degrees, longitude_in_degrees, half_side_in_met
     return box
 
 def get_random_str(length):
-    return ''.join(random.choice(string.lowercase) for i in range(length))
+    return ''.join(random.choice(string.ascii_lowercase) for i in range(length))
 
 def list_and_headers_to_json(headers,list_of_lists):
     assert isinstance(headers, list)

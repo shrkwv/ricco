@@ -1,8 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from utils import general_utilities, search_utilities
 from core.base.abstract_vector import base_vector
-import utils.scraper as scraper
 
 
 class location_info(base_vector):
@@ -26,7 +25,6 @@ class location_info(base_vector):
         results = geocoding["results"]
         if status == "OK":
             for res in results:
-                values = res.values()
-                self.result.append(values)
+                self.result.append([res["lat"], res["lng"], res["formatted_address"]])
         else:
             self.result = None

@@ -1,9 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import json
 import shlex
 import subprocess
-# import cStringIO
-# from xmlutils.xml2json import xml2json
+
 import xmltodict
 
 
@@ -44,7 +43,7 @@ class NmapScanner(object):
         self.nmap_err = nmap_err
 
         self.parsed_raw_scan_results = self.analyse_nmap_xml_scan()
-        self.parsed_scan_results = self.parsed_raw_scan_results.values()[0]
+        self.parsed_scan_results = list(self.parsed_raw_scan_results.values())[0]
         del self.parsed_scan_results["debugging"]
         del self.parsed_scan_results["verbose"]
 

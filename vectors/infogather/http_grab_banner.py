@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import socket
 
 from core.base.abstract_vector import base_vector
@@ -18,18 +18,14 @@ class http_grab_banner(base_vector):
     def execute(self):
         host = self.target
         ports = [80, 443]
-        http_versions = ["1.0", "1.1", "0.9"]
         CRLF = "\r\n\r\n"
         for port in ports:
             try:
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                s.settimeout(1)
-                s.connect((host, port))
-                s.send("GET / HTTP/1.0%s" % (CRLF))
-                grabbed_banner = s.recv(1024)
-                # print grabbed_banner
-                self.result.append([port, str(grabbed_banner)])
-            except:
+                with socket.create_connection((host, port), timeout=1) as s:
+                    s.sendall(("GET / HTTP/1.0%s" % (CRLF)).encode("ascii"))
+                    grabbed_banner = s.recv(1024).decode("utf-8", errors="replace")
+                    self.result.append([port, grabbed_banner])
+            except OSError:
 
                 continue
 

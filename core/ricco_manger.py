@@ -1,11 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import json
 from pprint import pprint
 import importlib
 
 import concurrent.futures
 
-from concurrent.futures import Future
 from utils.tabulate import tabulate
 from utils import general_utilities
 
@@ -96,21 +95,21 @@ class ricco_manager(object):
                 output = vector_result.output
                 if output:
 
-                    print banner
+                    print(banner)
 
                     if all(isinstance(i, list) for i in output) or all(isinstance(i, tuple) for i in output):
-                        print tabulate(output, headers=header)
+                        print(tabulate(output, headers=header))
                     elif isinstance(output, str):
-                        print "\n"
-                        print output
-                        print "\n"
+                        print("\n")
+                        print(output)
+                        print("\n")
                     else:
                         pprint(output)
                 else:
-                    print banner
-                    print "No results Found."
+                    print(banner)
+                    print("No results Found.")
 
-        elif output_format is 'json':
+        elif output_format == 'json':
             json_result = {}
 
             for vector_result in strategy_results:
@@ -130,8 +129,8 @@ class ricco_manager(object):
                 json_result = {"result":[{"status":"No Results"}]}
                 json_result = json.dumps(json_result)
 
-            print json_result
+            print(json_result)
 
-        elif output_format is 'xml':
+        elif output_format == 'xml':
             # TODO
             pass

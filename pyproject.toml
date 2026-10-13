@@ -1,0 +1,23 @@
+[project]
+name = "ricco"
+version = "2.0.0"
+description = "Simple Agile Reconnaissance Framework"
+readme = "README.md"
+license = "GPL-3.0-only"
+requires-python = ">=3.12"
+dependencies = [
+    "dnspython>=2.7,<3",
+    "ipwhois>=1.2,<2",
+    "lxml>=5,<7",
+    "xmltodict>=0.13,<1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+# Ricco is an application, not an installable package: the CLI is run as
+# `python ricco.py` from the repository root, so uv only manages dependencies.
+[tool.uv]
+package = false

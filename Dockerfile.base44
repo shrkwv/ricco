@@ -1,20 +1,20 @@
-# Stage 1: Build Python 2.7 packages
-FROM python:2.7-slim AS py-builder
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
-
-# Stage 2: PHP + Apache + Python 2.7 runtime
+# Ricco web container: PHP 7.4 + Apache frontend, Python 3.12 CLI managed by uv
 FROM php:7.4-apache
 
-# Install Python 2.7 runtime only (no build tools needed)
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends python2.7 && \
-    ln -sf /usr/bin/python2.7 /usr/local/bin/python && \
-    rm -rf /var/lib/apt/lists/*
+COPY --from=ghcr.io/astral-sh/uv:0.12.23 /uv /uvx /bin/
 
-# Copy installed Python packages from builder stage
-COPY --from=py-builder /usr/local/lib/python2.7/site-packages /usr/local/lib/python2.7/site-packages
-ENV PYTHONPATH=/usr/local/lib/python2.7/site-packages
+# Python 3.12 runtime and dependency venv live outside the bind-mounted source
+# dir, so rebuilds of the mount never shadow them. UV_LINK_MODE=copy keeps uv
+# from hardlinking across image layers.
+ENV UV_PYTHON_INSTALL_DIR=/opt/uv/python \
+    UV_LINK_MODE=copy
+WORKDIR /opt/ricco
+COPY pyproject.toml uv.lock ./
+RUN uv python install 3.12 && uv sync --frozen --no-dev
+
+# The PHP frontend shells out to `python ricco.py --output-json`, so `python`
+# must resolve to the venv's Python 3.12 interpreter.
+ENV PATH="/opt/ricco/.venv/bin:${PATH}"
 
 # Download and extract ricco-web (web frontend)
 RUN curl -sSL https://github.com/shrkwv/ricco-web/archive/refs/heads/master.tar.gz -o /tmp/ricco-web.tar.gz && \

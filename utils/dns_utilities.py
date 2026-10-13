@@ -6,17 +6,17 @@ def get_MX_records(host):
     # header = ['Type', 'Mail Exchange', 'Prefrences']
 
     try:
-        answers = dns.resolver.query(host,'MX')
+        answers = dns.resolver.resolve(host, 'MX')
         for rdata in answers:
             # result.append(('MX',rdata.exchange,rdata.preference))
             mx_server = "%s [%s]" %(str(rdata.exchange),str(rdata.preference))
             result.append(('MX',mx_server))
 
-    except dns.resolver.NXDOMAIN, e:
+    except dns.resolver.NXDOMAIN:
         return None
-    except dns.resolver.NoAnswer, e:
+    except dns.resolver.NoAnswer:
         return None
-    except (dns.resolver.NoNameservers, dns.resolver.Timeout), e:
+    except (dns.resolver.NoNameservers, dns.resolver.Timeout):
         return None
 
     return result
@@ -25,15 +25,15 @@ def get_NS_records(host):
     result = []
     # header = ['Type', 'Nameserver']
     try:
-        answers = dns.resolver.query(host,'NS')
+        answers = dns.resolver.resolve(host, 'NS')
         for rdata in answers:
             result.append(('NS',rdata))
 
-    except dns.resolver.NXDOMAIN, e:
+    except dns.resolver.NXDOMAIN:
         return None
-    except dns.resolver.NoAnswer, e:
+    except dns.resolver.NoAnswer:
         return None
-    except (dns.resolver.NoNameservers, dns.resolver.Timeout), e:
+    except (dns.resolver.NoNameservers, dns.resolver.Timeout):
         return None
 
     return result
@@ -42,15 +42,15 @@ def get_A_records(host):
     result = []
     # header = ['Type','Alias']
     try:
-        answers = dns.resolver.query(host,'A')
+        answers = dns.resolver.resolve(host, 'A')
         for rdata in answers:
             result.append(('A', rdata))
 
-    except dns.resolver.NXDOMAIN, e:
+    except dns.resolver.NXDOMAIN:
         return None
-    except dns.resolver.NoAnswer, e:
+    except dns.resolver.NoAnswer:
         return None
-    except (dns.resolver.NoNameservers, dns.resolver.Timeout), e:
+    except (dns.resolver.NoNameservers, dns.resolver.Timeout):
         return None
 
     return result
@@ -59,15 +59,15 @@ def get_AAAA_records(host):
     result = []
     # header = ['Type','Alias']
     try:
-        answers = dns.resolver.query(host,'AAAA')
+        answers = dns.resolver.resolve(host, 'AAAA')
         for rdata in answers:
             result.append(('AAAA', rdata))
 
-    except dns.resolver.NXDOMAIN, e:
+    except dns.resolver.NXDOMAIN:
         return None
-    except dns.resolver.NoAnswer, e:
+    except dns.resolver.NoAnswer:
         return None
-    except (dns.resolver.NoNameservers, dns.resolver.Timeout), e:
+    except (dns.resolver.NoNameservers, dns.resolver.Timeout):
         return None
 
     return result
