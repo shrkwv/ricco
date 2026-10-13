@@ -1,5 +1,6 @@
-![Supported Python versions](https://img.shields.io/badge/python-2.7-blue.svg)
+![Supported Python versions](https://img.shields.io/badge/python-3.12+-blue.svg)
 ![Supported OS](https://img.shields.io/badge/Supported%20OS-Linux-yellow.svg)
+![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/uv-badge.json)
 
 Ricco
 =====
@@ -10,13 +11,12 @@ Description
 ===========
 
 Ricco is a simple and extensible framework for retrieving information about target.
+It is a Python 3 CLI whose dependencies are managed with [uv](https://docs.astral.sh/uv/).
 
 Features
 ========
 
 - DNS Information
-
-- Photos by Location.
 
 - Whois Information ( only in terminal mode currently).
 
@@ -24,40 +24,38 @@ Features
 
 - Mails For Host.
 
+- Photos by Location (Flickr, requires your own API key).
+
 Examples
 ========
 
 Run specified Strategy on Target:
 
-```python ricco.py --target <TARGET> --strategy <STRATEGY>```
+```uv run python ricco.py --target <TARGET> --strategy <STRATEGY>```
 
 Run specified Vector on Target:
 
-```python ricco.py --target <TARGET> --vector <VECTOR>```
+```uv run python ricco.py --target <TARGET> --vector <VECTOR>```
 
-Run specified Vector on Target:
+Run specified Vector with arguments:
 
-```python ricco.py --target <TARGET> --vector <VECTOR> --vector-args <ARG>=<VALUE>```
+```uv run python ricco.py --target <TARGET> --vector <VECTOR> --vector-args <ARG>=<VALUE>```
 
 Show list of all Strategies:
 
-```python ricco.py --show-strategies```
+```uv run python ricco.py --show-strategies```
 
 Show list of all Vectors:
 
-```python ricco.py --show-vectors```
-
-Help on specified Strategy:
-
-```python ricco.py --help-vector <VECTOR>```
+```uv run python ricco.py --show-vectors```
 
 Help on specified Vector:
 
-```python ricco.py --help-vector <VECTOR>```
+```uv run python ricco.py --help-vector <VECTOR>```
 
-Output Results ad json:
+Output Results as json:
 
-```python ricco.py --target <TARGET> --strategy <STRATEGY> --output-json```
+```uv run python ricco.py --target <TARGET> --strategy <STRATEGY> --output-json```
 
 
 Currently Available Vectors:
@@ -68,7 +66,6 @@ Currently Available Vectors:
 | suffixes_fuzzing    | Check suffixes for host.                 |             |
 | iana_whois_info     | Get whois info from IANA.                |             |
 | domain_whois_info   | Get whois info from domain whois.        |             |
-| panoramio_by_box    | Search Panoramio for photos by location. | radius      |
 | location_info       | Get Info About location                  |             |
 | nmap_banner         | Get banners from nmap banner nse.        |             |
 | dns_info            | Get information from dns server.         |             |
@@ -78,12 +75,23 @@ Currently Available Vectors:
 | ip_whois_info       | Get whois info from IPWHOIS              |             |
 | mails_on_host       | Search for mails by host.                |             |
 | subdomains_fuzzing  | Check subdomains for host.               |             |
-| instagram_by_radius | Search Instagram for photos by location. | radius      |
-| youtube_by_radius   | Search YouTube for photos by location.   | radius      |
 
 Installation
 ============
 
 - Clone this repository
-- pip install requirements.txt.
-- python ricco.py --help
+- Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
+- `uv sync`
+- `uv run python ricco.py --help`
+
+Some vectors need API keys configured in `core/ricco.ini` (Flickr, Google).
+
+Web UI (Docker)
+===============
+
+A PHP/Apache web frontend is available via Docker (see `docker-compose.base44.yml`);
+the container ships Python 3.12 and the dependency venv managed by uv:
+
+```docker compose -f docker-compose.base44.yml up -d --build
+# Preview at http://localhost:3000
+```
